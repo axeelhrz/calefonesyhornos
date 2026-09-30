@@ -1,0 +1,96 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --color-brand: #f97316;
+  --color-brand-dark: #ea580c;
+  --color-brand-light: #fb923c;
+  --color-surface: #111111;
+  --color-surface-soft: #1a1a1a;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #1da851;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #0a0a0a;
+    overscroll-behavior-y: none;
+  }
+
+  body {
+    @apply font-sans antialiased text-neutral-900;
+    background-color: #0a0a0a;
+    min-height: 100dvh;
+  }
+
+  #root {
+    min-height: 100dvh;
+    background-color: #ffffff;
+  }
+}
+
+@layer components {
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    background-color: #25d366;
+    color: #ffffff;
+    border: 2px solid #25d366;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-whatsapp:hover {
+    background-color: #1da851;
+    border-color: #1da851;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+  }
+
+  .btn-whatsapp svg {
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-linear-to-r from-brand to-brand-light bg-clip-text text-transparent;
+  }
+
+  .glass {
+    @apply bg-white/10 backdrop-blur-xl border border-white/15;
+  }
+
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-xl border border-white/10;
+  }
+
+  .section-pad {
+    @apply py-14 sm:py-20 md:py-28;
+  }
+}
+
+@media (max-width: 1023px) {
+  html {
+    scroll-padding-top: 4.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
