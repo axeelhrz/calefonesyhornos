@@ -3,27 +3,28 @@ import { CTA } from './components/CTA'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
+import { Marquee } from './components/Marquee'
 import { MobileActionBar } from './components/MobileActionBar'
 import { Services } from './components/Services'
 import { Testimonials } from './components/Testimonials'
-import { WhatsAppButton } from './components/WhatsAppButton'
 import { WhyUs } from './components/WhyUs'
 
 function App() {
   return (
-    <div className="overflow-x-hidden bg-white">
+    <div className="overflow-x-hidden bg-ink">
+      <div className="grain" aria-hidden />
       <Header />
-      <main className="pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0">
+      <main>
         <Hero />
-        <Services />
+        <Marquee />
         <WhyUs />
+        <Services />
         <Testimonials />
         <Contact />
         <CTA />
       </main>
       <Footer />
       <MobileActionBar />
-      <WhatsAppButton />
     </div>
   )
 }

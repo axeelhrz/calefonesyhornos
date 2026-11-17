@@ -1,37 +1,84 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: 'DM Sans', system-ui, sans-serif;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --color-brand: #f97316;
-  --color-brand-dark: #ea580c;
-  --color-brand-light: #fb923c;
-  --color-surface: #111111;
-  --color-surface-soft: #1a1a1a;
-  --color-whatsapp: #25d366;
-  --color-whatsapp-dark: #1da851;
+  --font-sans: 'Inter Tight', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --color-ink: #14110e;
+  --color-paper: #f4efe8;
+  --color-cream: #ebe4d8;
+  --color-brand: #c45c26;
+  --color-brand-dark: #9a3f14;
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    background-color: #0a0a0a;
-    overscroll-behavior-y: none;
+    scroll-padding-top: 5.5rem;
+    background: #14110e;
   }
 
   body {
-    @apply font-sans antialiased text-neutral-900;
-    background-color: #0a0a0a;
+    @apply font-sans antialiased text-ink;
+    background: #14110e;
     min-height: 100dvh;
   }
 
   #root {
     min-height: 100dvh;
-    background-color: #ffffff;
+    background: #14110e;
+  }
+
+  ::selection {
+    background: #c45c26;
+    color: #fff;
+  }
+
+  a,
+  button {
+    transition:
+      color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
 @layer components {
+  .grain {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    opacity: 0.09;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .liquid-glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 32s linear infinite;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
   .btn-whatsapp {
     display: inline-flex;
     align-items: center;
@@ -39,16 +86,14 @@
     gap: 0.625rem;
     background-color: #25d366;
     color: #ffffff;
-    border: 2px solid #25d366;
-    font-weight: 600;
-    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    border: 0;
+    font-weight: 500;
   }
 
   .btn-whatsapp:hover {
     background-color: #1da851;
-    border-color: #1da851;
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+    box-shadow: 0 10px 24px rgba(37, 211, 102, 0.28);
   }
 
   .btn-whatsapp svg {
@@ -57,40 +102,14 @@
   }
 }
 
-@layer utilities {
-  .text-gradient {
-    @apply bg-linear-to-r from-brand to-brand-light bg-clip-text text-transparent;
-  }
-
-  .glass {
-    @apply bg-white/10 backdrop-blur-xl border border-white/15;
-  }
-
-  .glass-dark {
-    @apply bg-black/40 backdrop-blur-xl border border-white/10;
-  }
-
-  .section-pad {
-    @apply py-14 sm:py-20 md:py-28;
-  }
-}
-
-@media (max-width: 1023px) {
-  html {
-    scroll-padding-top: 4.5rem;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  .marquee-track {
+    animation: none;
+  }
+  .grain {
+    display: none;
   }
 }
